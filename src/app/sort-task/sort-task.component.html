@@ -1,0 +1,51 @@
+<div>
+  <h3>Sort Tasks</h3>
+  <div style="margin-bottom: 20px;">
+    <button (click)="sortTasks('entity_name')"
+            style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px 20px; margin: 5px; cursor: pointer;">
+      Sort by Entity Name
+    </button>
+    <button (click)="sortTasks('task_type')"
+            style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px 20px; margin: 5px; cursor: pointer;">
+      Sort by Task Type
+    </button>
+    <button (click)="sortTasks('status')"
+            style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px 20px; margin: 5px; cursor: pointer;">
+      Sort by Status
+    </button>
+    <button (click)="sortTasks('date')"
+            style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px 20px; margin: 5px; cursor: pointer;">
+      Sort by Date
+    </button>
+    <button (click)="sortTasks('contact_person')"
+            style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px 20px; margin: 5px; cursor: pointer;">
+      Sort by Contact Person
+    </button>
+  </div>
+
+  <hr />
+
+  <h3>Task List</h3>
+  <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; margin: 10px 0;">
+    <thead style="background-color: #f2f2f2; text-align: left; border-bottom: 2px solid #ddd;">
+      <tr>
+        <th style="padding: 10px;">Entity Name</th>
+        <th style="padding: 10px;">Task Type</th>
+        <th style="padding: 10px;">Time of Task</th>
+        <th style="padding: 10px;">Contact Person</th>
+        <th style="padding: 10px;">Status</th>
+        <th style="padding: 10px;">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks" style="border-bottom: 1px solid #ddd;">
+        <td style="padding: 10px;">{{ task.entity_name }}</td>
+        <td style="padding: 10px;">{{ task.task_type }}</td>
+        <td style="padding: 10px;">{{ task.time_of_task }}</td>
+        <td style="padding: 10px;">{{ task.contact_person }}</td>
+        <td style="padding: 10px;">{{ task.status }}</td>
+        <td style="padding: 10px;">{{ task.date | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

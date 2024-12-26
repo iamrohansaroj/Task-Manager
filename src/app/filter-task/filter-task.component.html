@@ -1,0 +1,88 @@
+<div>
+  <h3>Filter Tasks</h3>
+  <div class="filters" style="margin-bottom: 20px;">
+    <div>
+      <label for="teamMember">Team Member:</label>
+      <select id="teamMember"
+              [(ngModel)]="filter.teamMember"
+              (ngModelChange)="applyFilters()"
+              style="border-radius: 5px; padding: 5px; margin-bottom: 10px;">
+        <option value="">All</option>
+        <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="taskTypeFilter">Task Type:</label>
+      <select id="taskTypeFilter"
+              [(ngModel)]="filter.taskType"
+              (ngModelChange)="applyFilters()"
+              style="border-radius: 5px; padding: 5px; margin-bottom: 10px;">
+        <option value="">All</option>
+        <option *ngFor="let type of taskTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="statusFilter">Status:</label>
+      <select id="statusFilter"
+              [(ngModel)]="filter.status"
+              (ngModelChange)="applyFilters()"
+              style="border-radius: 5px; padding: 5px; margin-bottom: 10px;">
+        <option value="">All</option>
+        <option *ngFor="let status of taskStatuses" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="entityNameFilter">Entity Name:</label>
+      <input type="text"
+             id="entityNameFilter"
+             [(ngModel)]="filter.entityName"
+             (ngModelChange)="applyFilters()"
+             placeholder="Search by Entity Name"
+             style="border-radius: 5px; padding: 5px; margin-bottom: 10px; width: 200px;" />
+    </div>
+    <div>
+      <label for="contactPersonFilter">Contact Person:</label>
+      <input type="text"
+             id="contactPersonFilter"
+             [(ngModel)]="filter.contactPerson"
+             (ngModelChange)="applyFilters()"
+             placeholder="Search by Contact Person"
+             style="border-radius: 5px; padding: 5px; margin-bottom: 10px; width: 200px;" />
+    </div>
+    <div>
+      <label for="dateFilter">Date:</label>
+      <input type="date"
+             id="dateFilter"
+             [(ngModel)]="filter.date"
+             (ngModelChange)="applyFilters()"
+             style="border-radius: 5px; padding: 5px; margin-bottom: 10px; width: 200px;" />
+    </div>
+  </div>
+
+  <hr />
+
+  <h3>Task List</h3>
+  <table style="width: 100%; border-spacing: 0; background: white; border-radius: 10px; overflow: hidden; border-collapse: collapse;">
+    <thead style="background-color: #f2f2f2;">
+      <tr>
+        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #ddd;">Entity Name</th>
+        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #ddd;">Task Type</th>
+        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #ddd;">Time of Task</th>
+        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #ddd;">Contact Person</th>
+        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #ddd;">Status</th>
+        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #ddd;">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of filteredTasks" style="border-bottom: 1px solid #ddd;">
+        <td style="padding: 10px;">{{ task.entity_name }}</td>
+        <td style="padding: 10px;">{{ task.task_type }}</td>
+        <td style="padding: 10px;">{{ task.time_of_task }}</td>
+        <td style="padding: 10px;">{{ task.contact_person }}</td>
+        <td style="padding: 10px;">{{ task.status }}</td>
+        <td style="padding: 10px;">{{ task.date | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

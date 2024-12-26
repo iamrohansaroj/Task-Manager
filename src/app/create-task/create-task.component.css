@@ -1,0 +1,14 @@
+/* Add this to your global styles or component-specific styles */
+.message {
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.message {
+  font-weight: bold;
+  color: green; /* For success messages */
+}
+
+  .message.error {
+    color: red; /* For error messages */
+  }

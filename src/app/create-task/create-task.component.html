@@ -1,0 +1,97 @@
+<div class="task-container">
+  <h2>Create or Update Task</h2>
+
+  <!-- Task Form -->
+  <form (ngSubmit)="createOrUpdateTask()">
+    <div>
+      <label for="entityName">Entity Name:</label>
+      <input type="text"
+             id="entityName"
+             [(ngModel)]="task.entity_name"
+             name="entity_name"
+             required />
+    </div>
+    <div>
+      <label for="taskType">Task Type:</label>
+      <select id="taskType"
+              [(ngModel)]="task.task_type"
+              name="task_type"
+              required>
+        <option *ngFor="let type of taskTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="timeOfTask">Time of Task:</label>
+      <input type="time"
+             id="timeOfTask"
+             [(ngModel)]="task.time_of_task"
+             name="time_of_task"
+             required />
+    </div>
+    <div>
+      <label for="contactPerson">Contact Person:</label>
+      <select id="contactPerson"
+              [(ngModel)]="task.contact_person"
+              name="contact_person"
+              required>
+        <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="note">Note:</label>
+      <textarea id="note"
+                [(ngModel)]="task.note"
+                name="note"
+                rows="4"
+                cols="50"></textarea>
+    </div>
+    <div>
+      <label for="status">Status:</label>
+      <select id="status" [(ngModel)]="task.status" name="status" required>
+        <option *ngFor="let status of taskStatuses" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+    <div>
+      <button type="submit">Save Task</button>
+    </div>
+  </form>
+
+  <!-- Message Display -->
+  <div *ngIf="message" class="message">
+    <p>{{ message }}</p>
+  </div>
+
+  <hr />
+
+  <!-- Task List -->
+  <h3>Task List</h3>
+  <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden;">
+    <thead style="background-color: #f2f2f2; text-align: left; border-bottom: 2px solid #ddd;">
+      <tr>
+        <th style="padding: 10px;">Entity Name</th>
+        <th style="padding: 10px;">Task Type</th>
+        <th style="padding: 10px;">Time of Task</th>
+        <th style="padding: 10px;">Contact Person</th>
+        <th style="padding: 10px;">Status</th>
+        <th style="padding: 10px;">Date</th>
+        <th style="padding: 10px; text-align: center;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks" style="border-bottom: 1px solid #ddd;">
+        <td style="padding: 10px;">{{ task.entity_name }}</td>
+        <td style="padding: 10px;">{{ task.task_type }}</td>
+        <td style="padding: 10px;">{{ task.time_of_task }}</td>
+        <td style="padding: 10px;">{{ task.contact_person }}</td>
+        <td style="padding: 10px;">{{ task.status }}</td>
+        <td style="padding: 10px;">{{ task.date | date: 'short' }}</td>
+        <td style="padding: 10px; text-align: center;">
+          <button (click)="editTask(task)" style="margin-right: 5px; padding: 5px 10px; border: none; background-color: #2196F3; color: white; border-radius: 5px; cursor: pointer;">Edit</button>
+          <button (click)="deleteTask(task.id)" style="margin-right: 5px; padding: 5px 10px; border: none; background-color: #f44336; color: white; border-radius: 5px; cursor: pointer;">Delete</button>
+          <button *ngIf="task.status !== 'completed'" (click)="changeStatus(task, 'completed')" style="padding: 5px 10px; border: none; background-color: #4CAF50; color: white; border-radius: 5px; cursor: pointer;">Mark as Completed</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
