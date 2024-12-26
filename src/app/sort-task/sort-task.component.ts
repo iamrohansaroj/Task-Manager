@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common';
 
 
 interface Task {
@@ -18,41 +18,35 @@ interface Task {
 @Component({
   selector: 'app-sort-task',
   standalone: true,
-  imports: [NgForOf, NgIf, FormsModule, CommonModule],  // Add CommonModule here
+  imports: [NgForOf, NgIf, FormsModule, CommonModule],
   templateUrl: './sort-task.component.html',
-  //styleUrls: ['./sort-task.component.css'],
 })
 export class SortTaskComponent {
-  // Predefined list of team members (contact persons)
   teamMembers: string[] = ['Amit', 'Ramesh', 'Rasik', 'Priya'];
 
-  // Predefined task statuses
   taskStatuses: string[] = ['open', 'in-progress', 'completed'];
 
-  // Predefined task types (for filtering)
   taskTypes: string[] = ['Development', 'Testing', 'Research'];
 
-  // Predefined task sorting options
   sortOptions: string[] = ['Date', 'Entity Name', 'Status'];
 
   task: Task = {
     entity_name: '',
     task_type: '',
     time_of_task: '',
-    contact_person: 'Amit',  // Default contact person
+    contact_person: 'Amit',
     note: '',
-    status: 'open',  // Default to 'open'
-    date: new Date(),  // Initialize with the current date
+    status: 'open',
+    date: new Date(),
   };
 
-  tasks: Task[] = [];  // Array to hold the tasks
+  tasks: Task[] = []; 
 
-  message: string = '';  // To show success or error message
+  message: string = '';
 
-  sortCriterion: string = 'date'; // Default sort by date
-  sortOrder: string = 'asc'; // Default sort order
+  sortCriterion: string = 'date';
+  sortOrder: string = 'asc';
 
-  // Filter criteria
   filter: any = {
     teamMember: '',
     taskType: '',
@@ -67,26 +61,23 @@ export class SortTaskComponent {
     if (savedTasks) {
       this.tasks = JSON.parse(savedTasks).map((task: Task) => ({
         ...task,
-        date: new Date(task.date), // Convert date string to Date object
+        date: new Date(task.date),
       }));
     }
   }
 
 
   sortTasks(criterion: string) {
-    // If the selected criterion is the same as the previous one, toggle the order
     if (this.sortCriterion === criterion) {
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortCriterion = criterion;
-      this.sortOrder = 'asc'; // Default to ascending order for new criteria
+      this.sortOrder = 'asc';
     }
 
-    // Sorting logic
     this.tasks.sort((a, b) => {
       let comparison = 0;
 
-      // Compare based on the selected criterion
       switch (criterion) {
         case 'entity_name':
           comparison = a.entity_name.localeCompare(b.entity_name);
@@ -105,7 +96,6 @@ export class SortTaskComponent {
           break;
       }
 
-      // If the order is descending, reverse the comparison
       return this.sortOrder === 'asc' ? comparison : -comparison;
     });
   }
